@@ -131,7 +131,7 @@ class PostsFormTest(TestCase):
     def test_add_comment(self):
         """Проверка формы создания комментария."""
         form_data = {
-            'text': 'Тестовый комментарий',
+            'text': PostsFormTest.comment.text,
         }
 
         comment_count = PostsFormTest.post.comments.count()
@@ -150,7 +150,7 @@ class PostsFormTest(TestCase):
         self.assertTrue(
             Comment.objects.filter(
                 post=PostsFormTest.post,
-                text='Тестовый комментарий',
+                text=PostsFormTest.comment.text,
                 author=PostsFormTest.user,
             ).exists()
         )
@@ -160,5 +160,5 @@ class PostsFormTest(TestCase):
         )
         self.assertEqual(
             response.context['comments'][comment_count_add - 1].text,
-            'Тестовый комментарий'
+            PostsFormTest.comment.text
         )
